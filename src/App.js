@@ -4,6 +4,7 @@ import picture from './assets/picture.jpg'
 import waldo from './assets/waldo.png'
 import odlaw from './assets/odlaw.png'
 import wizard from './assets/wizard.png'
+import Dropdown from './components/Dropdown';
 
 function App() {
   const [clicked, setClicked] = useState(false);
@@ -31,54 +32,39 @@ function App() {
 
   return (
     <div className="App">
-      <div>
+      <div className='header'>
+        <p>Where's Waldo?</p>
+      </div>
+      <div className='findBlock'>
+        <p id="findText">Characters to find:</p>
         <img src={waldo} alt="Waldo"></img>
         <img src={odlaw} alt="Odlaw"></img>
         <img src={wizard} alt="Wizard"></img>
       </div>
-      <div>
       {clicked ? 
-          <>
-            <div className="gamePictureWrapper">
-              <img 
-                ref={gamePicture}
-                id="gamePicture"
-                src={picture} 
-                alt="where's waldo?"
-                onClick={onClick}
-              >
-              </img>
-              <div 
-                id='dropDownMenu'
-                style={{left: xCoord - 30, top: yCoord - 30}}
-              >
-                <div id="targetBox">
-                </div>
-                <div className='variants'>
-                  <div id="Waldo">
-                    Waldo
-                  </div>
-                  <div id="Wilma">
-                    Wilma
-                  </div>
-                  <div id="Wizard">
-                    Wizard
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        :
-          <div className="App">
-            <img 
-              src={picture} 
-              alt="where's waldo?"
-              onClick={onClick}
-            >
-            </img>
-          </div>
+        <div className="gamePictureWrapper">
+          <img 
+            ref={gamePicture}
+            id="gamePicture"
+            src={picture} 
+            alt="where's waldo?"
+            onClick={onClick}
+          >
+          </img>
+          <Dropdown x={xCoord} y={yCoord}/>
+        </div>
+      :
+        <div className="gamePictureWrapper">
+          <img 
+            ref={gamePicture}
+            id="gamePicture"
+            src={picture} 
+            alt="where's waldo?"
+            onClick={onClick}
+          >
+          </img>
+        </div>
       }
-      </div>
     </div>
   );
 }

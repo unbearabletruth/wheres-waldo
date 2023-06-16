@@ -4,13 +4,46 @@
   box-sizing: border-box;
 }
 
-body{
+.App{
+  display: flex;
+  width: 100vw;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.header{
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  height: 50px;
+  width: 100vw;
+  background-color: #0ea5e9;
+  color: white;
+  font-weight: bold;
+}
+
+.findBlock{
+  display: flex;
+  align-items: center;
+}
+
+#findText{
+  font-size: 30px;
+  color: #ef4444;
 }
 
 .gamePictureWrapper{
   position: relative;
+  
+}
+
+#gamePicture{
+  width: 1000px;
+  height: auto;
+  border: 2px solid #0ea5e9;
+  border-radius: 10px;
 }
 
 #dropDownMenu{
