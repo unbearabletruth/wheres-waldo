@@ -1,4 +1,4 @@
-function Dropdown({x, y}) {
+function Dropdown({x, y, handleSelected}) {
   return (
       <div 
         id='dropDownMenu'
@@ -7,13 +7,13 @@ function Dropdown({x, y}) {
         <div id="targetBox">
         </div>
         <div className='variants'>
-          <div id="Waldo">
+          <div id="Waldo" onClick={handleSelected}>
             Waldo
           </div>
-          <div id="Wilma">
-            Wilma
+          <div id="Odlaw" onClick={handleSelected}>
+            Odlaw
           </div>
-          <div id="Wizard">
+          <div id="Wizard" onClick={handleSelected}>
             Wizard
           </div>
         </div>

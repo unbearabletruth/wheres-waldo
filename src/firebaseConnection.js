@@ -1,4 +1,15 @@
 import { initializeApp } from "firebase/app";
+import {
+    getFirestore,
+    collection,
+    doc,
+    addDoc,
+    query,
+    orderBy,
+    limit,
+    onSnapshot,
+    getDoc
+  } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyAr6jrn_0lw9GDMCr_K4YtSgp_AhzdoPqU",
@@ -10,5 +21,17 @@ const firebaseConfig = {
   };
   
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-export default app;
+async function getCharacters(db, name) {
+    const charDoc = doc(db, 'characters', name);
+    const charSnapshot = await getDoc(charDoc);
+    if (charSnapshot.exists()) {
+        const charCoords = charSnapshot.data();
+        return charCoords;
+    } else {
+        return "No such document!";
+    }
+}
+
+export {db, getCharacters};
