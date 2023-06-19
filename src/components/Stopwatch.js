@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Popup from "./Popup";
 
 const Stopwatch = ({start, finish}) => {
   const [time, setTime] = useState(0);
@@ -18,15 +19,8 @@ const Stopwatch = ({start, finish}) => {
     return () => clearInterval(interval);
   }, [isRunning, time]);
 
-  return (
-    <div className="stopwatchWrapper">
-      <p className="stopwatch">
-        {Math.floor((time % 360000) / 6000).toString().padStart(2, "0")}:
-        {Math.floor((time % 6000) / 100).toString().padStart(2, "0")}:
-        {(time % 100).toString().padStart(2, "0")}
-      </p>
-    </div>
-  );
+  return finish ? <Popup time={time}/> : null
 };
+
 
 export default Stopwatch;

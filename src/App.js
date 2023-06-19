@@ -6,6 +6,7 @@ import odlaw from './assets/odlaw.png'
 import wizard from './assets/wizard.png'
 import Dropdown from './components/Dropdown';
 import Stopwatch from './components/Stopwatch';
+import Leaderboard from './components/Leaderboard';
 import {db, getCharacters} from './firebaseConnection';
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
   const [yCoord, setYcoord] = useState(0);
   const gamePicture = useRef(null);
   const [start, setStart] = useState(false);
-  const [finish, setFinish] = useState("Find all characters!");
+
+  const [finish, setFinish] = useState(false);
 
   useEffect(() => {
     for (let char of characters){
@@ -28,7 +30,7 @@ function App() {
         return
       }
     }
-    setFinish("You found them all!")
+    setFinish(true)
   },[characters])
 
   useEffect(() => {
@@ -72,7 +74,8 @@ function App() {
   const handleSelected = (e) => {
     setSelected(e.target.id);
   }
-  console.log("render")
+
+  console.log(finish)
   return (
     <div className="App">
       <div className='header'>
@@ -92,7 +95,6 @@ function App() {
           )
         })}
         <p>{finish}</p>
-        <Stopwatch start={start} finish={finish}/>
       </div>
       {clicked ? 
         <div className="gamePictureWrapper">
@@ -118,6 +120,8 @@ function App() {
           </img>
         </div>
       }
+      <Stopwatch start={start} finish={finish}/>
+      <Leaderboard/>
     </div>
   );
 }

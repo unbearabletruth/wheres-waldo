@@ -4,11 +4,9 @@ import {
     collection,
     doc,
     addDoc,
-    query,
-    orderBy,
-    limit,
-    onSnapshot,
-    getDoc
+    setDoc,
+    getDoc,
+    getDocs
   } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -34,4 +32,20 @@ async function getCharacters(db, name) {
     }
 }
 
-export {db, getCharacters};
+async function writeResultToLeaderboard(db, name, time){
+  await setDoc(doc(db, "leaderboard", name), {
+    name: name,
+    time: time,
+  });
+}
+
+async function getLeaderboard(db) {
+  const getLeaderboard = collection(db, 'leaderboard');
+  const leaderboardSnapshot = await getDocs(getLeaderboard);
+  const leaderboard = leaderboardSnapshot.docs.map(doc => doc.data())
+  console.log(leaderboard)
+  return leaderboard;
+
+}
+
+export {db, getCharacters, writeResultToLeaderboard, getLeaderboard};

@@ -10,6 +10,7 @@
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  position: relative;
 }
 
 .header{
@@ -103,4 +104,22 @@
 
 .found{
   opacity: 0.3;
+}
+
+.popupWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  width: 400px;
+  height: 300px;
+  border-radius: 10px;
+}
+
+.time{
+  font-size: 30px;
 }
