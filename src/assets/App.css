@@ -66,3 +66,7 @@
   border: 5px solid #c026d3;
   border-radius: 5px;
 }
+
+.found{
+  opacity: 0.3;
+}

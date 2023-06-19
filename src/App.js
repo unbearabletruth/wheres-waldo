@@ -9,9 +9,9 @@ import {db, getCharacters} from './firebaseConnection';
 
 function App() {
   const [characters, setCharacters] = useState([
-    {name: "Waldo", found: false},
-    {name: "Wizard", found: false},
-    {name: "Odlaw", found: false}
+    {name: "Waldo", image: waldo, found: false, id: 1},
+    {name: "Wizard", image: wizard, found: false, id: 2},
+    {name: "Odlaw", image: odlaw, found: false, id: 3}
   ])
   const [selected, setSelected] = useState("");
   const [clicked, setClicked] = useState(false);
@@ -67,9 +67,17 @@ function App() {
       </div>
       <div className='findBlock'>
         <p id="findText">Characters to find:</p>
-        <img src={waldo} alt="Waldo"></img>
-        <img src={odlaw} alt="Odlaw"></img>
-        <img src={wizard} alt="Wizard"></img>
+        {characters.map(char => {
+          return(
+              <img 
+                key={char.id}
+                src={char.image} 
+                alt="Waldo" 
+                className={char.found? "found" : null}
+              >
+              </img>
+          )
+        })}
       </div>
       {clicked ? 
         <div className="gamePictureWrapper">
