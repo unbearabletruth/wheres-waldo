@@ -5,6 +5,7 @@ import waldo from './assets/waldo.png'
 import odlaw from './assets/odlaw.png'
 import wizard from './assets/wizard.png'
 import Dropdown from './components/Dropdown';
+import Stopwatch from './components/Stopwatch';
 import {db, getCharacters} from './firebaseConnection';
 
 function App() {
@@ -18,16 +19,16 @@ function App() {
   const [xCoord, setXcoord] = useState(0);
   const [yCoord, setYcoord] = useState(0);
   const gamePicture = useRef(null);
-  const [finished, setFinished] = useState("Find all characters!");
+  const [start, setStart] = useState(false);
+  const [finish, setFinish] = useState("Find all characters!");
 
   useEffect(() => {
-    console.log(characters)
     for (let char of characters){
       if (char.found === false){
         return
       }
     }
-    setFinished("You found them all!")
+    setFinish("You found them all!")
   },[characters])
 
   useEffect(() => {
@@ -62,10 +63,10 @@ function App() {
   }, [gamePicture]);
 
   const onClick = (e) => {
+    setStart(true)
     setClicked(true)
     setXcoord(e.nativeEvent.offsetX)
     setYcoord(e.nativeEvent.offsetY)
-    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
   }
 
   const handleSelected = (e) => {
@@ -90,7 +91,8 @@ function App() {
               </img>
           )
         })}
-        <p>{finished}</p>
+        <p>{finish}</p>
+        <Stopwatch start={start} finish={finish}/>
       </div>
       {clicked ? 
         <div className="gamePictureWrapper">

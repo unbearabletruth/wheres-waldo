@@ -1,3 +1,7 @@
+import waldo from '../assets/optionWaldo.png'
+import odlaw from '../assets/optionOdlaw.png'
+import wizard from '../assets/optionWizard.png'
+
 function Dropdown({x, y, handleSelected}) {
   return (
       <div 
@@ -5,15 +9,19 @@ function Dropdown({x, y, handleSelected}) {
         style={{left: x - 30, top: y - 30}}
       >
         <div id="targetBox">
+          ?
         </div>
         <div className='variants'>
-          <div id="Waldo" onClick={handleSelected}>
+          <div id="Waldo" className="option" onClick={handleSelected}>
+            <img src={waldo} alt='waldo' className='optionImg'></img>
             Waldo
           </div>
-          <div id="Odlaw" onClick={handleSelected}>
+          <div id="Odlaw" className="option" onClick={handleSelected}>
+            <img src={odlaw} alt='waldo' className='optionImg'></img>
             Odlaw
           </div>
-          <div id="Wizard" onClick={handleSelected}>
+          <div id="Wizard" className="option" onClick={handleSelected}>
+            <img src={wizard} alt='waldo' className='optionImg'></img>
             Wizard
           </div>
         </div>

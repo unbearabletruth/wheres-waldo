@@ -56,14 +56,48 @@
 
 .variants{
   background-color: white;
-  border: 1px solid #c026d3;
-  border-radius: 10px;
+  border-radius: 5px;
+}
+
+.option{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  width: 125px;
+  height: 50px;
+}
+
+#Waldo.option{
+  border-radius: 5px 5px 0px 0px;
+}
+
+#Wizard.option{
+  border-radius: 0px 0px 5px 5px;
+}
+
+.option:hover{
+  background-color: #0ea5e9;
+  color: white;
+  cursor: pointer;
+}
+
+.optionImg{
+  width: auto;
+  height: 30px;
+  border-radius: 5px;
 }
 
 #targetBox{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: black 0px 0px 10px;
+  font-size: 50px;
+  font-weight: bold;
   width: 60px;
   height: 60px;
-  border: 5px solid #c026d3;
   border-radius: 5px;
 }
 
