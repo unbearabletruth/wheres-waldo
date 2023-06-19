@@ -18,6 +18,17 @@ function App() {
   const [xCoord, setXcoord] = useState(0);
   const [yCoord, setYcoord] = useState(0);
   const gamePicture = useRef(null);
+  const [finished, setFinished] = useState("Find all characters!");
+
+  useEffect(() => {
+    console.log(characters)
+    for (let char of characters){
+      if (char.found === false){
+        return
+      }
+    }
+    setFinished("You found them all!")
+  },[characters])
 
   useEffect(() => {
     if (selected !== ""){
@@ -54,6 +65,7 @@ function App() {
     setClicked(true)
     setXcoord(e.nativeEvent.offsetX)
     setYcoord(e.nativeEvent.offsetY)
+    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY)
   }
 
   const handleSelected = (e) => {
@@ -78,6 +90,7 @@ function App() {
               </img>
           )
         })}
+        <p>{finished}</p>
       </div>
       {clicked ? 
         <div className="gamePictureWrapper">
