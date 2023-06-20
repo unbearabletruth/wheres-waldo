@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import { db, getLeaderboard } from "../firebaseConnection"
+import uniqid from "uniqid";
 
 const Leaderboard = () => {
   const [leaderboard, setLeaderboard] = useState();
 
   useEffect(() => {
-    const lb = getLeaderboard(db);
+    const lbPromise = getLeaderboard(db);
+
     async function readLeaderboard(){
-      const properLB = await lb;
-      console.log(properLB)
-      setLeaderboard(properLB)
+      const lbArray = await lbPromise;
+      lbArray.sort((a, b) => a.time - b.time);
+      setLeaderboard(lbArray)
     }
     readLeaderboard()
   },[])
+
   console.log(leaderboard)
   return(
     leaderboard ?
@@ -24,7 +27,7 @@ const Leaderboard = () => {
         </tr>
         {leaderboard.map(entry => {
           return(
-            <tr>
+            <tr key={uniqid()}>
               <td>{entry.name}</td>
               <td>{entry.time}</td>
             </tr>

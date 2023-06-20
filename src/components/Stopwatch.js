@@ -4,10 +4,18 @@ import Popup from "./Popup";
 const Stopwatch = ({start, finish}) => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [popupState, setPopupState] = useState(false)
+
+  const handlePopup = () => {
+    setPopupState(!popupState)
+  }
 
   useEffect(() => {
     if(start === true || finish === true){
       setIsRunning(!isRunning);
+    }
+    if(finish === true){
+      setPopupState(!popupState);
     }
   },[start, finish])
 
@@ -19,7 +27,7 @@ const Stopwatch = ({start, finish}) => {
     return () => clearInterval(interval);
   }, [isRunning, time]);
 
-  return finish ? <Popup time={time}/> : null
+  return popupState ? <Popup time={time} handlePopup={handlePopup}/> : null
 };
 
 

@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { db, writeResultToLeaderboard } from "../firebaseConnection";
 
-const Popup = ({time}) => {
+const Popup = ({time, handlePopup}) => {
   const [input, setInput] = useState("");
-
+  
   const handleChange = (e) =>{
     setInput(e.target.value)
   }
 
+  const handleCancel = () => {
+    handlePopup()
+  }
+
   const handleResult = () => {
     writeResultToLeaderboard(db, input, time)
+    handlePopup()
   }
 
   return(
@@ -22,7 +27,7 @@ const Popup = ({time}) => {
       </p>
       <label>Your name</label>
       <input type="text" onChange={handleChange}></input>
-      <button>Cancel</button>
+      <button onClick={handleCancel}>Cancel</button>
       <button onClick={handleResult}>Submit</button>
     </div>
   )

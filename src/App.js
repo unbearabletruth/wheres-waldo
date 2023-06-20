@@ -8,12 +8,13 @@ import Dropdown from './components/Dropdown';
 import Stopwatch from './components/Stopwatch';
 import Leaderboard from './components/Leaderboard';
 import {db, getCharacters} from './firebaseConnection';
+import uniqid from "uniqid";
 
 function App() {
   const [characters, setCharacters] = useState([
-    {name: "Waldo", image: waldo, found: false, id: 1},
-    {name: "Wizard", image: wizard, found: false, id: 2},
-    {name: "Odlaw", image: odlaw, found: false, id: 3}
+    {name: "Waldo", image: waldo, found: false, id: uniqid()},
+    {name: "Wizard", image: wizard, found: false, id: uniqid()},
+    {name: "Odlaw", image: odlaw, found: false, id: uniqid()}
   ])
   const [selected, setSelected] = useState("");
   const [clicked, setClicked] = useState(false);
@@ -21,7 +22,6 @@ function App() {
   const [yCoord, setYcoord] = useState(0);
   const gamePicture = useRef(null);
   const [start, setStart] = useState(false);
-
   const [finish, setFinish] = useState(false);
 
   useEffect(() => {
@@ -75,6 +75,16 @@ function App() {
     setSelected(e.target.id);
   }
 
+  const restart = () => {
+    setCharacters(characters.map(char => 
+      char.found === true ?
+      {...char, found: false}
+      : char
+      ))
+    setStart(false)
+    setFinish(false)
+  }
+
   console.log(finish)
   return (
     <div className="App">
@@ -82,7 +92,7 @@ function App() {
         <p>Where's Waldo?</p>
       </div>
       <div className='findBlock'>
-        <p id="findText">Characters to find:</p>
+        <p id="findText">{!finish? "Characters to find:" : "All found!"}</p>
         {characters.map(char => {
           return(
               <img 
@@ -95,6 +105,7 @@ function App() {
           )
         })}
         <p>{finish}</p>
+        {finish ? <button onClick={restart}>Play again!</button> : null}
       </div>
       {clicked ? 
         <div className="gamePictureWrapper">

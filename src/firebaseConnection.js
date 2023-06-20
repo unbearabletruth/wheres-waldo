@@ -3,7 +3,6 @@ import {
     getFirestore,
     collection,
     doc,
-    addDoc,
     setDoc,
     getDoc,
     getDocs
