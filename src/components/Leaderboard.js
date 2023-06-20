@@ -29,7 +29,11 @@ const Leaderboard = () => {
           return(
             <tr key={uniqid()}>
               <td>{entry.name}</td>
-              <td>{entry.time}</td>
+              <td>
+                {Math.floor((entry.time % 6000) / 100).toString()}.
+                {(entry.time % 100).toString().padStart(2, "0")}
+                s
+              </td>
             </tr>
           )
         })}

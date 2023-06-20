@@ -23,6 +23,8 @@ function App() {
   const gamePicture = useRef(null);
   const [start, setStart] = useState(false);
   const [finish, setFinish] = useState(false);
+  const [found, setFound] = useState([]);
+  const [wrongGuess, setWrongGuess] = useState(false);
 
   useEffect(() => {
     for (let char of characters){
@@ -45,7 +47,10 @@ function App() {
             {...char, found: true}
             : char
             ))
-        } 
+          setFound(found.concat({name: selected, x: xCoord, y: yCoord}));
+        } else {
+          setWrongGuess(true);
+        }
       }
       compareCoords()
       setSelected("")
@@ -65,6 +70,7 @@ function App() {
   }, [gamePicture]);
 
   const onClick = (e) => {
+    setWrongGuess(false)
     setStart(true)
     setClicked(true)
     setXcoord(e.nativeEvent.offsetX)
@@ -105,6 +111,7 @@ function App() {
           )
         })}
         <p>{finish}</p>
+        {wrongGuess ? <p id="wrongGuessText">Oh no, you missed!</p> : null}
         {finish ? <button id="restartButton" onClick={restart}>Play again!</button> : null}
       </div>
       {clicked ? 
@@ -118,6 +125,19 @@ function App() {
           >
           </img>
           <Dropdown x={xCoord} y={yCoord} handleSelected={handleSelected}/>
+          {found ?
+            found.map(char => {
+              return (
+                <div 
+                  key={uniqid()} 
+                  className="foundMarker" 
+                  style={{left: char.x - 25, top: char.y - 10}}
+                >
+                  {char.name}
+                </div>
+            )})
+            : null
+          }
         </div>
       :
         <div className="gamePictureWrapper">
@@ -129,6 +149,19 @@ function App() {
             onClick={onClick}
           >
           </img>
+          {found ?
+            found.map(char => {
+              return (
+                <div 
+                  key={uniqid()} 
+                  className="foundMarker" 
+                  style={{left: char.x - 25, top: char.y - 10}}
+                >
+                  {char.name}
+                </div>
+            )})
+            : null
+          }
         </div>
       }
       <Stopwatch start={start} finish={finish}/>

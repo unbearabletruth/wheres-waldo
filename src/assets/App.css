@@ -31,7 +31,7 @@
 }
 
 #findText{
-  font-size: 30px;
+  font-size: 2rem;
   color: #ef4444;
 }
 
@@ -58,6 +58,7 @@
 .variants{
   background-color: white;
   border-radius: 5px;
+  color:#3f3f46
 }
 
 .option{
@@ -87,6 +88,7 @@
   width: auto;
   height: 30px;
   border-radius: 5px;
+  pointer-events: none;
 }
 
 #targetBox{
@@ -217,4 +219,24 @@ a:active {
 
 a{
   color: white;
+}
+
+.foundMarker{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 20px;
+  background-color: white;
+  border: 2px solid #3f3f46;
+  border-radius: 5px;
+  position: absolute;
+  color: #3f3f46;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+#wrongGuessText{
+  color: #ef4444;
+  font-size: 2rem;
 }
