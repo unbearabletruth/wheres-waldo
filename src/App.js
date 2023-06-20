@@ -85,11 +85,11 @@ function App() {
     setFinish(false)
   }
 
-  console.log(finish)
   return (
     <div className="App">
       <div className='header'>
         <p>Where's Waldo?</p>
+        <a href="#leaderboardCaption">Go to leaderboard</a>
       </div>
       <div className='findBlock'>
         <p id="findText">{!finish? "Characters to find:" : "All found!"}</p>
@@ -105,7 +105,7 @@ function App() {
           )
         })}
         <p>{finish}</p>
-        {finish ? <button onClick={restart}>Play again!</button> : null}
+        {finish ? <button id="restartButton" onClick={restart}>Play again!</button> : null}
       </div>
       {clicked ? 
         <div className="gamePictureWrapper">

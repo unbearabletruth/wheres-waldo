@@ -5,7 +5,10 @@ import {
     doc,
     setDoc,
     getDoc,
-    getDocs
+    getDocs,
+    query,
+    orderBy,
+    limit
   } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -39,12 +42,10 @@ async function writeResultToLeaderboard(db, name, time){
 }
 
 async function getLeaderboard(db) {
-  const getLeaderboard = collection(db, 'leaderboard');
+  const getLeaderboard = query(collection(db, 'leaderboard'), orderBy("time"), limit(10));
   const leaderboardSnapshot = await getDocs(getLeaderboard);
   const leaderboard = leaderboardSnapshot.docs.map(doc => doc.data())
-  console.log(leaderboard)
   return leaderboard;
-
 }
 
 export {db, getCharacters, writeResultToLeaderboard, getLeaderboard};

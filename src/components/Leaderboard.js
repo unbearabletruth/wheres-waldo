@@ -10,16 +10,16 @@ const Leaderboard = () => {
 
     async function readLeaderboard(){
       const lbArray = await lbPromise;
-      lbArray.sort((a, b) => a.time - b.time);
+      //lbArray.sort((a, b) => a.time - b.time);
       setLeaderboard(lbArray)
     }
     readLeaderboard()
   },[])
 
-  console.log(leaderboard)
   return(
     leaderboard ?
       <table>
+        <caption id="leaderboardCaption">Leaderboard's top ten</caption>
         <tbody>
         <tr>
           <th>Name</th>

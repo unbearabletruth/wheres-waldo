@@ -12,7 +12,8 @@ const Popup = ({time, handlePopup}) => {
     handlePopup()
   }
 
-  const handleResult = () => {
+  const handleResult = (e) => {
+    e.preventDefault();
     writeResultToLeaderboard(db, input, time)
     handlePopup()
   }
@@ -20,15 +21,21 @@ const Popup = ({time, handlePopup}) => {
   return(
     <div className="popupWrapper">
       <p className="time">
-        You finished in:
-        {Math.floor((time % 360000) / 6000).toString().padStart(2, "0")}:
-        {Math.floor((time % 6000) / 100).toString().padStart(2, "0")}:
-        {(time % 100).toString().padStart(2, "0")}
+        You finished in<br/>
+        {Math.floor((time % 6000) / 100).toString()}.
+        {(time % 100).toString().padStart(2, "0")}&nbsp;
+        seconds
       </p>
-      <label>Your name</label>
-      <input type="text" onChange={handleChange}></input>
-      <button onClick={handleCancel}>Cancel</button>
-      <button onClick={handleResult}>Submit</button>
+      <form id="popupForm" onSubmit={handleResult}>
+        <div>
+          <label>Your name </label>
+          <input id="popupInput" type="text" onChange={handleChange} required></input>
+        </div>
+        <div className="popupButtons">
+          <button className="popupButton" onClick={handleCancel}>Cancel</button>
+          <button className="popupButton" type="submit">Submit</button>
+        </div>
+      </form>
     </div>
   )
 }
