@@ -38,10 +38,14 @@ function App() {
   useEffect(() => {
     if (selected !== ""){
       const coords = getCharacters(db, selected);
+      const offset = gamePicture.current.getBoundingClientRect();
+      const x = Math.floor(xCoord / offset.width * 1000)/10;
+      const y = Math.floor(yCoord / offset.height * 1000)/10;
+      
       async function compareCoords(){
         const charCoords = await coords;
-        if ((charCoords.left <= xCoord && xCoord <= charCoords.right) &&
-        (charCoords.top <= yCoord && yCoord <= charCoords.bottom)){
+        if ((charCoords.left <= x && x <= charCoords.right) &&
+        (charCoords.top <= y && y <= charCoords.bottom)){
           setCharacters(characters.map(char => 
             char.name === selected ?
             {...char, found: true}
@@ -70,11 +74,11 @@ function App() {
   }, [gamePicture]);
 
   const onClick = (e) => {
+    setXcoord(e.nativeEvent.offsetX)
+    setYcoord(e.nativeEvent.offsetY)
     setWrongGuess(false)
     setStart(true)
     setClicked(true)
-    setXcoord(e.nativeEvent.offsetX)
-    setYcoord(e.nativeEvent.offsetY)
   }
 
   const handleSelected = (e) => {
@@ -102,20 +106,13 @@ function App() {
         <p id="findText">{!finish? "Where are they?" : "You found all!"}</p>
         {characters.map(char => {
           return(
-            <div key={char.id} className='charStatusWrapper'>
               <img 
+                key={char.id}
                 src={char.image} 
                 alt="Waldo" 
                 className={char.found? "found" : null}
               >
               </img>
-              <p 
-                className={char.found ? "foundText" : null} 
-                id='charStatusText'
-              >
-                {char.found ? "Found!" : "Find!"}
-              </p>
-            </div>
           )
         })}
         <p>{finish}</p>
