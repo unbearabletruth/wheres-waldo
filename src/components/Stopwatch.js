@@ -11,6 +11,9 @@ const Stopwatch = ({start, finish}) => {
   }
 
   useEffect(() => {
+    if(start === false){
+      setTime(0)
+    }
     if(start === true || finish === true){
       setIsRunning(!isRunning);
     }

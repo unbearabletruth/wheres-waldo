@@ -89,6 +89,7 @@ function App() {
       ))
     setStart(false)
     setFinish(false)
+    setFound([])
   }
 
   return (
@@ -98,16 +99,23 @@ function App() {
         <a href="#leaderboardCaption">Go to leaderboard</a>
       </div>
       <div className='findBlock'>
-        <p id="findText">{!finish? "Characters to find:" : "All found!"}</p>
+        <p id="findText">{!finish? "Where are they?" : "You found all!"}</p>
         {characters.map(char => {
           return(
+            <div key={char.id} className='charStatusWrapper'>
               <img 
-                key={char.id}
                 src={char.image} 
                 alt="Waldo" 
                 className={char.found? "found" : null}
               >
               </img>
+              <p 
+                className={char.found ? "foundText" : null} 
+                id='charStatusText'
+              >
+                {char.found ? "Found!" : "Find!"}
+              </p>
+            </div>
           )
         })}
         <p>{finish}</p>
